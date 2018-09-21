@@ -16,6 +16,9 @@ Route::get('car','UserController@index');
 Route::get('edit/{id}','UserController@edit');
 Route::post('edit/{id}','UserController@update');
 Route::delete('{id}','UserController@destroy');
+Route::get('login','UserController@login');
+Route::get('userdetails','UserController@returndetails');
+Route::post('userdetails','UserController@returndetails');
 Route::get('/', function () {
     return view('welcomepage');
 });

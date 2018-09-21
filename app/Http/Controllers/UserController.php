@@ -69,4 +69,20 @@ class UserController extends Controller
         $car->save();
         return redirect('car')->with('success', 'User has been successfully update');
     }
+    public function returndetails(Request $request)
+    {
+        $user=User::where('email','=',$request->get('email'))->get();
+        if(sizeof($user)!=0)
+        {if(Hash::check($request->get('password'), $user[0]->password))
+        {return $user;}
+        else{return null;}}
+        else{
+            return "USer is not exist";
+        }
+        //return $user;
+    }
+    public function login()
+    {
+        return view('loginpage');
+    }
 }

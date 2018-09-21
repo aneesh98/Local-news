@@ -22,7 +22,7 @@
     border-radius: 20in;
 
   }
-  .button
+  .btn1
   {
       
       background-color:green;
@@ -39,11 +39,11 @@
             <h1>Delta News:<h3>Know What's happening around you</h3></h1>
       </div>
 <div class="well division">
-    
+    @csrf
     <label for="New">New Here?</label><br>
-    <button class="btn button">REGISTER</button>
+<button class="btn btn1" onclick="location.href = '{{url('add')}}';">REGISTER</button>
     <br><label for="New">Else</label>
-   <br><button class="btn button" >LOGIN</button>
+   <br><button class="btn btn1" >LOGIN</button>
 
 </div>
 </body>
