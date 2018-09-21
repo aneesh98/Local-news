@@ -17,5 +17,5 @@ Route::get('edit/{id}','UserController@edit');
 Route::post('edit/{id}','UserController@update');
 Route::delete('{id}','UserController@destroy');
 Route::get('/', function () {
-    return view('welcome');
+    return view('welcomepage');
 });

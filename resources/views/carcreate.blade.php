@@ -54,7 +54,7 @@
               @if (\Session::has('alertmessage'))
       <div class="alert alert-success">
         <p>{{ \Session::get('alertmessage') }}</p>
-      </div><br />
+      </div></br >
      @endif
       </form>
    </div>
