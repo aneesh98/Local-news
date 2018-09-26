@@ -5,12 +5,23 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Input;
-//use Intervention\Image\ImageServiceProvider;
+//use Intervention\Image\ImageServiceProv-ider;
 use Image;
 use App\User;
 class UserController extends Controller
-{
+{   public function welcome()
+    {
+        if(!Session::has('userdetail'))
+        {
+            return redirect('');
+        }
+        else
+        {
+            return redirect('dashboard');
+        }
+    }
     public function create()
     {
         return view('carcreate');
@@ -49,6 +60,7 @@ class UserController extends Controller
         $cars=User::all();
         return view('carindex',compact('cars'));
     }
+    
     public function edit($id)
     {
         $car = User::find($id);
@@ -70,19 +82,44 @@ class UserController extends Controller
         return redirect('car')->with('success', 'User has been successfully update');
     }
     public function returndetails(Request $request)
-    {
-        $user=User::where('email','=',$request->get('email'))->get();
+    {if(!Session::has('userdetail'))
+        {$user=User::where('email','=',$request->get('email'))->get();
         if(sizeof($user)!=0)
-        {if(Hash::check($request->get('password'), $user[0]->password))
-        {return $user;}
-        else{return null;}}
-        else{
-            return "USer is not exist";
+        {
+            if(Hash::check($request->get('password'), $user[0]->password))
+        {   
+            Session::put('userdetail',$user[0]);
+            return view('dashboard');
         }
+        
+    }
+        else{
+            return "User is not exist";
+        }
+    }
+        
         //return $user;
     }
-    public function login()
+    public function loaddashboard()
     {
+        if(Session::has('userdetail'))
+        {
+            return view('dashboard');
+        }
+        else
+        {
+            return redirect('login');
+        }
+    }
+    public function login()
+    {   if(!Session::has('userdetail'))
         return view('loginpage');
+        else
+        return redirect('dashboard');
+    }
+    public function logout()
+    {
+        Session::flush();
+        redirect('');
     }
 }

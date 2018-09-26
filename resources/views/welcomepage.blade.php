@@ -10,6 +10,7 @@
   <style>
       body{
           background-image: url("../public/storage/backgroundimg.jpg");
+          
       }
   .division
   {
@@ -43,7 +44,7 @@
     <label for="New">New Here?</label><br>
 <button class="btn btn1" onclick="location.href = '{{url('add')}}';">REGISTER</button>
     <br><label for="New">Else</label>
-   <br><button class="btn btn1" >LOGIN</button>
+   <br><button class="btn btn1" onclick="location.href='{{url('login')}}';">LOGIN</button>
 
 </div>
 </body>

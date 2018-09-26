@@ -17,8 +17,9 @@ Route::get('edit/{id}','UserController@edit');
 Route::post('edit/{id}','UserController@update');
 Route::delete('{id}','UserController@destroy');
 Route::get('login','UserController@login');
+Route::post('login','UserController@login');
 Route::get('userdetails','UserController@returndetails');
 Route::post('userdetails','UserController@returndetails');
-Route::get('/', function () {
-    return view('welcomepage');
-});
+Route::get('dashboard','UserController@loaddashboard');
+Route::post('dashboard','UserController@loaddashboard');
+Route::get('/', 'UserController@welcome');
