@@ -13,7 +13,7 @@
       <h2>Edit A Form</h2><br/>
       <div class="container">
     </div>
-      <form method="post" action="{{action('CarController@update', $id)}}">
+      <form method="post" action="{{action('UserController@update', $id)}}">
         @csrf
         <div class="row">
           <div class="col-md-4"></div>

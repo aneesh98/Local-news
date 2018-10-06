@@ -10,12 +10,13 @@ use Illuminate\Support\Facades\Input;
 //use Intervention\Image\ImageServiceProv-ider;
 use Image;
 use App\User;
+use App\Articles;
 class UserController extends Controller
 {   public function welcome()
     {
         if(!Session::has('userdetail'))
         {
-            return redirect('');
+            return view('welcomepage');
         }
         else
         {
@@ -72,6 +73,7 @@ class UserController extends Controller
         $car->delete();
         return redirect('car')->with('success','User has been  deleted');
     }
+    
     public function update(Request $request, $id)
     {
         $car= User::find($id);
@@ -100,6 +102,8 @@ class UserController extends Controller
         
         //return $user;
     }
+
+
     public function loaddashboard()
     {
         if(Session::has('userdetail'))
@@ -120,6 +124,6 @@ class UserController extends Controller
     public function logout()
     {
         Session::flush();
-        redirect('');
+        redirect('/');
     }
 }
