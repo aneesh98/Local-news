@@ -11,6 +11,6 @@ class User extends Eloquent
     protected $collection = 'User';
     
     protected $fillable = [
-        'username', 'email','password','cover_image'=>'image|max:1999'
+        'username', 'email','password','cover_image'=>'image|max:1999','friends','friend_requests_recv','friend_requests_sent'
     ];
 }

@@ -39,4 +39,10 @@ class ArticlesController extends Controller
         $article=Articles::find($id);
         return view('posts.displaypost')->with('article',$article);
     }
+    public function deleteArticle($id)
+    {
+        $article=Articles::find($id);
+        $article->delete();
+        return redirect('/dashboard');
+    }
 }

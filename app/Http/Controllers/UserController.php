@@ -53,15 +53,23 @@ class UserController extends Controller
             }
         } 
         $car->cover_image=$fileNameToStore;
+        $car->friends=[];
+        $car->friend_requests_recv=[];
+        $car->friend_requests_sent=[];
         $car->save();
         return redirect('car')->with('success', 'User has been successfully added');
     }
+    
     public function index()
     {
         $cars=User::all();
         return view('carindex',compact('cars'));
     }
-    
+    public function returnusers()
+    {
+        $users=User::all();
+        return view('showusers')->with('users',$users);
+    }
     public function edit($id)
     {
         $car = User::find($id);
@@ -73,7 +81,17 @@ class UserController extends Controller
         $car->delete();
         return redirect('car')->with('success','User has been  deleted');
     }
-    
+    public function sendFriendRequest($id)
+    {
+        
+    }
+    public function listusers()
+    {
+        $users=User::all();
+        $arr=Session::get('userdetail')->friend_requests_sent;
+        echo $arr;
+        return view('userlist')->with('users',$users);
+    }
     public function update(Request $request, $id)
     {
         $car= User::find($id);
@@ -124,6 +142,6 @@ class UserController extends Controller
     public function logout()
     {
         Session::flush();
-        redirect('/');
+        return redirect('/');
     }
 }
