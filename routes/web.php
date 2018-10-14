@@ -33,5 +33,7 @@ Route::post('viewusers','UserController@returnusers');
 Route::get('viewposts/{id}','ArticlesController@displayPost');
 Route::get('deletepost/{id}','ArticlesController@deleteArticle');
 Route::post('storearticle','ArticlesController@StorePost');
+Route::get('sendrequest/{id}','UserController@sendFriendRequest');
+Route::post('sendrequest/{id}','UserController@sendFriendRequest');
 Route::get('/', 'UserController@welcome');
 Route::post('/', 'UserController@welcome');

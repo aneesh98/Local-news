@@ -20,5 +20,7 @@ class VerifyCsrfToken extends Middleware
      */
     protected $except = [
         //
+        //'192.168.1.105:8012/laravelmong'
+        'http://192.168.1.105:8012/laravelmongodb/public/viewusers/*',
     ];
 }

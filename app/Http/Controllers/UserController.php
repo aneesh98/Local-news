@@ -53,9 +53,9 @@ class UserController extends Controller
             }
         } 
         $car->cover_image=$fileNameToStore;
-        $car->friends=[];
-        $car->friend_requests_recv=[];
-        $car->friend_requests_sent=[];
+        $car->friends=array();
+        $car->friend_requests_recv=array();
+        $car->friend_requests_sent=array();
         $car->save();
         return redirect('car')->with('success', 'User has been successfully added');
     }
@@ -81,9 +81,55 @@ class UserController extends Controller
         $car->delete();
         return redirect('car')->with('success','User has been  deleted');
     }
+    
     public function sendFriendRequest($id)
+    {   $id=(string)$id;
+        $curruser=Session::get('userdetail');
+        $arr1=$curruser->friend_requests_sent;
+        array_push($arr1,$id); 
+        $curruser->friend_requests_sent=$arr1;
+        $requesteduser=User::find($id);
+        //return $requested->_id;
+        //$requesteduser=$requested[0];
+        echo "<script>";
+        echo "console.log('$requesteduser->email');";
+        echo "</script>";
+        $arr2=$requesteduser->friend_requests_recv;
+        array_push($arr2,Session::get('userdetail')->_id);
+        $requesteduser->friend_requests_recv=$arr2;
+        $curruser->save();
+        $requesteduser->save();
+        return  $requesteduser;
+        return response()->json([
+            'success' => 'yes',
+          ]);;
+    }
+    public function acceptFriendRequest($id)
+    {   $id=(string)$id;
+        $curruser=Session::get('userdetail');
+        $arr1=$curruser->friend_requests_sent;
+        array_push($arr1,$id); 
+        $curruser->friend_requests_sent=$arr1;
+        $requesteduser=User::find($id);
+        //return $requested->_id;
+        //$requesteduser=$requested[0];
+        echo "<script>";
+        echo "console.log('$requesteduser->email');";
+        echo "</script>";
+        $arr2=$requesteduser->friend_requests_recv;
+        array_push($arr2,Session::get('userdetail')->_id);
+        $requesteduser->friend_requests_recv=$arr2;
+        $curruser->save();
+        $requesteduser->save();
+        return  $requesteduser;
+        return response()->json([
+            'success' => 'yes',
+          ]);;
+    }
+    public function getuserbyid($id)
     {
-        
+        $userdetail=User::find($id);
+        return $userdetail;
     }
     public function listusers()
     {
@@ -109,7 +155,7 @@ class UserController extends Controller
             if(Hash::check($request->get('password'), $user[0]->password))
         {   
             Session::put('userdetail',$user[0]);
-            return view('dashboard');
+            return redirect('dashboard');
         }
         
     }
