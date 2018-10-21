@@ -8,6 +8,6 @@
     <h1>Welcome Back {{Session::get('userdetail')->username}} !!</h1>
     <button class="btn btn-primary" onclick="location.href = '{{url('logout')}}';">LOG OUT</button>
     <button class="btn btn-primary" onclick="location.href = '{{url('postarticle')}}';">POST AN ARTICLE</button>
-    <button class="btn btn-primary" onclick="location.href = '{{url('viewposts')}}';">VIEW YOUR POSTS</button>
+    <button class="btn btn-primary" onclick="location.href = '{{url('viewposts')}}';">KNOW WHAT's HAPPENING AROUND YOU</button>
     </div>
 @endsection

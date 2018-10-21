@@ -21,6 +21,7 @@ class ArticlesController extends Controller
         $post->userid=Session::get('userdetail')->_id;
         $post->title=$request->input('title');
         $post->text=$request->input('body');
+        $post->comments=array();
         $post->save();
         return redirect('dashboard')->with('success','Post created succesfully');
     }
@@ -30,15 +31,29 @@ class ArticlesController extends Controller
     }
 
     public function viewposts()
-    {   $articles=Articles::where('userid','=',Session::get('userdetail')->_id)->get();
-        // /return $articles;
+    {   $articles=Articles::all();
+        foreach($articles as $elem)
+        {
+            $data=User::where('_id','=',$elem->userid)->get();
+            $elem->username=$data[0]->username;
+        }
+       // return $articles;
         return view('posts.viewposts')->with('posts',$articles);
     }
     public function displayPost($id)
     {
         $article=Articles::find($id);
+      
         return view('posts.displaypost')->with('article',$article);
     }
+    public function comments(Request $request,$id)
+    {
+        $article=Articles::find($id);
+        $comment=["username"=>Session::get('userdetail')->username,"comment"=>$request->comment];
+        $arr=$article->comments;
+        array_push($arr,$comment);
+        $article->comments=$arr;
+      }
     public function deleteArticle($id)
     {
         $article=Articles::find($id);

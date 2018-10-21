@@ -13,27 +13,40 @@
       <h2>DELTA NEWS: Know whats happening around you</h2><br/>
       <div class="container">
     </div>
+    @if((\Session::has('error')))
+    <div class="container">
+      <h2>{{\Session::get('error')}}</h2>
+    </div>
+    @endif
+    
       <form method="post" action="{{url('add')}}" enctype="multipart/form-data">
         @csrf
         <div class="row">
           <div class="col-md-4"></div>
           <div class="form-group col-md-4">
             <label for="UserName">User Name:</label>
-            <input type="text" class="form-control" name="username">
+            <input type="text" class="form-control" name="username" required>
           </div>
         </div>
         <div class="row">
           <div class="col-md-4"></div>
           <div class="form-group col-md-4">
             <label for="Email">Email:</label>
-            <input type="text" class="form-control" name="email">
+            <input type="email" class="form-control" name="email" required>
           </div>
         </div>
         <div class="row">
           <div class="col-md-4"></div>
           <div class="form-group col-md-4">
             <label for="Password">Password:</label>
-            <input type="password" class="form-control" name="password">
+            <input type="password" class="form-control" name="password" required>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-4"></div>
+          <div class="form-group col-md-4">
+            <label for="Password">Confirm Password:</label>
+            <input type="password" class="form-control" name="confirm" required>
           </div>
         </div>
         

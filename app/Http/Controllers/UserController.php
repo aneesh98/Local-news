@@ -32,7 +32,11 @@ class UserController extends Controller
         $car = new User();
         $car->username = $request->get('username');
         $car->email = $request->get('email');
-        $car->password = Hash::make($request->get('password'));       
+        $car->password = Hash::make($request->get('password'));   
+        if(!($car->password==$car->confirm))
+        {
+            return redirect('add')->with('error','Passwords dont match');
+        }    
         if($request->hasFile('cover_image'))
         {
             $fileNameWithExt=$request->file('cover_image')->getClientOriginalName();
@@ -81,7 +85,10 @@ class UserController extends Controller
         $car->delete();
         return redirect('car')->with('success','User has been  deleted');
     }
-    
+    public function loadIndex()
+    {
+        return view('index');
+    }
     public function sendFriendRequest($id)
     {   $id=(string)$id;
         $curruser=Session::get('userdetail');

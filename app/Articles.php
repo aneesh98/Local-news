@@ -11,6 +11,6 @@ class Articles extends Eloquent
     protected $collection = 'Articles';
     
     protected $fillable = [
-        'userid', 'title','text'
+        'userid', 'title','text','like','dislike','comments'
     ];
 }
